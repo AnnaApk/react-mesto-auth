@@ -1,0 +1,10 @@
+.element__group {
+  display: flex;
+  color: black;
+  justify-content: space-between;
+  margin-left: 21px;
+  margin-right: 15px;
+  margin-top: 23px;
+  align-items: baseline;
+  padding-right: 5px;
+}

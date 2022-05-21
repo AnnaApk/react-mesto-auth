@@ -1,0 +1,23 @@
+.profile__change{
+  border: 1px solid white;
+  background: none;
+  background-image: url(../../../images/changeInfo.svg);
+  width: 24px;
+  height: 24px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.profile__change:hover {
+  opacity: .6;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 740px) {
+  .profile__change {
+    margin-left: 15px;
+    width: 18px;
+    height: 18px;
+    background-image: url(../../../images/changeInfoSmall.svg);
+  }
+}

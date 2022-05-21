@@ -1,0 +1,35 @@
+.profile__photo-container {
+  display: block;
+  margin: 0;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  z-index: 0;
+}
+
+.profile__photo-container::before {
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  opacity: 0;
+  z-index: 1;
+  content: "";
+  background-image: url(../../../images/editAvatar.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.profile__photo-container:hover::before {
+  opacity: .8;
+}
+
+@media screen and (max-width: 740px) {
+  .profile__photo-container {
+    margin: 0 auto;
+  }
+}

@@ -1,0 +1,11 @@
+.profile__photo {
+  min-width: 100%;
+  max-width: -webkit-fill-available;
+  min-height: 100%;
+  max-height: -webkit-fill-available;
+  object-fit: cover;
+}
+
+.profile__photo:hover {
+  cursor: pointer;
+}

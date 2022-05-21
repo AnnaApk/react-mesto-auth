@@ -1,0 +1,9 @@
+.element__photo {
+  max-width: 100%;
+  object-fit: cover;
+  min-height: -webkit-fill-available;
+}
+
+.element__photo:hover {
+  cursor: pointer;
+}
