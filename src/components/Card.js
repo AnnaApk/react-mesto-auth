@@ -2,8 +2,6 @@ import { useContext } from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 export default function Card(props) {
-  //console.log('# props',props)
-  //console.log('## props.owner._id',props.owner._id)
   const {_id} = useContext(CurrentUserContext);
 
   const isOwn = props.owner._id === _id;

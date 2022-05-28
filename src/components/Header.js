@@ -12,7 +12,7 @@ function Header(props) {
       {(location.pathname === '/sign-in') && <Link to="/sign-up" className="auth__link-sign-in">Зарегистрироваться</Link>}
       {(location.pathname === '/') && (
       <div className="container">
-        <p>{props.userData}</p>
+        <p>{props.userEmail}</p>
         <Link to="/sign-in" className="auth__link-sign-in" onClick={props.signOut}>Выйти</Link>
       </div>)}
     </header>

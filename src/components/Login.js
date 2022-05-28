@@ -32,12 +32,27 @@ function Login(props) {
       <div className="auth">
         <p className="auth__title">Вход</p>
         <form className="auth__form" onSubmit={handleSubmit}>
-          <input id="email" name="email" className="auth__input" type="email" value={formParametrs.email} placeholder='Email' onChange={handleChange}></input>
-          <input id="password" name="password" className="auth__input" type="password" value={formParametrs.password} placeholder='Пароль' onChange={handleChange}></input>
+          <input
+            id="email"
+            name="email"
+            className="auth__input"
+            type="email"
+            value={formParametrs.email}
+            placeholder='Email'
+            onChange={handleChange}
+          />
+          <input
+            id="password"
+            name="password"
+            className="auth__input"
+            type="password"
+            value={formParametrs.password}
+            placeholder='Пароль'
+            onChange={handleChange}
+          />
           <button className="auth__button" type="submit" value="Войти">Войти</button>
         </form>
       </div>
-      <InfoTooltip isOpen={props.loggedErr} onClose={props.onClosePopup} union={union2} message={'Что-то пошло не так! Попробуйте ещё раз.'} />
     </div>
   )
 }

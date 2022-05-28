@@ -26,10 +26,36 @@ function AddPlacePopup(props) {
     });
   }
   return (
-    <PopupWithForm name="new-post" title="Новое место" isOpen={props.isOpen} onClose={props.onClose} onSubmit={handleSubmit}>
-      <input id="new-place-input" className="popup__input popup__input_type_place" type="text" name="NewPlace" placeholder="Название" required minLength="1" maxLength="30" value={nameValue} onChange={handleNameChange} />
+    <PopupWithForm
+      name="new-post"
+      title="Новое место"
+      isOpen={props.isOpen}
+      onClose={props.onClose}
+      onSubmit={handleSubmit}
+    >
+      <input
+        id="new-place-input"
+        className="popup__input popup__input_type_place"
+        type="text"
+        name="NewPlace"
+        placeholder="Название"
+        minLength="1"
+        maxLength="30"
+        value={nameValue}
+        onChange={handleNameChange}
+        required
+      />
       <span className="new-place-input-error popup__input-error"></span>
-      <input id="new-photo-input" className="popup__input popup__input_type_photo" type="url" name="NewPhoto" placeholder="Ссылка на картинку" value={linkValue} onChange={handleLinkChange} required />
+      <input
+        id="new-photo-input"
+        className="popup__input popup__input_type_photo"
+        type="url"
+        name="NewPhoto"
+        placeholder="Ссылка на картинку"
+        value={linkValue}
+        onChange={handleLinkChange}
+        required
+      />
       <span className="new-photo-input-error popup__input-error"></span>
   </PopupWithForm>
   )

@@ -15,14 +15,14 @@ class Api {
     return fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers
     })
-    .then(res => this._getResponseData(res))
+    .then(this._getResponseData)
   }
   
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {
       headers: this._headers
     })
-    .then(res => this._getResponseData(res))
+    .then(this._getResponseData)
   }
 
   editProfile(name, about) {
@@ -34,7 +34,7 @@ class Api {
         about
       })
     })
-    .then(res => this._getResponseData(res))
+    .then(this._getResponseData)
   }
 
   editAvatar(avatar) {
@@ -45,7 +45,7 @@ class Api {
         avatar
       })
     })
-    .then(res => this._getResponseData(res))
+    .then(this._getResponseData)
   }
 
   addNewCard(name, link) {
@@ -57,7 +57,7 @@ class Api {
         link
       })
     })
-    .then(res => this._getResponseData(res))
+    .then(this._getResponseData)
   }
 
   deleteCard(id) {
@@ -65,7 +65,7 @@ class Api {
       method: 'DELETE',
       headers: this._headers
     })
-    .then(res => this._getResponseData(res))
+    .then(this._getResponseData)
   }
 
   _deleteLikes(id) {
@@ -73,7 +73,7 @@ class Api {
       method: 'DELETE',
       headers: this._headers
     })
-    .then(res => this._getResponseData(res))
+    .then(this._getResponseData)
   }
 
   _addLikes(id) {
@@ -81,7 +81,7 @@ class Api {
       method: 'PUT',
       headers: this._headers
     })
-    .then(res => this._getResponseData(res))
+    .then(this._getResponseData)
   }
 
   changeLikeCardStatus(id, isLiked) {

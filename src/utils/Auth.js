@@ -24,7 +24,7 @@ export const authorize = (email, password) => {
       'Content-Type': 'application/json'},
     body: JSON.stringify({email, password})
   })
-  .then((res) => checkResponse(res))
+  .then(checkResponse)
 }
 
 export const getContent = (token) => {
@@ -36,5 +36,5 @@ export const getContent = (token) => {
       'Authorization': `Bearer ${token}`
     }
   })
-  .then((res) => checkResponse(res))
+  .then(checkResponse)
 }
