@@ -11,14 +11,13 @@ import InfoTooltip from "./InfoTooltip";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
-  const [loggedErr, setLoggedErr] = useState(false);
   const [infoTooltipState, setInfoTooltipState] = useState({
     status: "",
     text: "",
     isOpen: false,
   });
-  const messageErr = 'Что-то пошло не так! Попробуйте ещё раз.';
-  const messageSucc = 'Вы успешно зарегистрировались!';
+  const messageErr = "Что-то пошло не так! Попробуйте ещё раз.";
+  const messageSucc = "Вы успешно зарегистрировались!";
   const [userEmail, setUserEmail] = useState("");
   const history = useHistory();
   const [currentUser, setCurrentUser] = useState({
@@ -35,20 +34,20 @@ function App() {
 
   const closeInfoTooltip = () => {
     if (infoTooltipState.status == "success") {
-      history.push('/sign-in')
+      history.push("/sign-in");
     }
     setInfoTooltipState((prevState) => ({
       ...prevState,
       isOpen: false,
       text: "",
-      status: ""
-    }))
+      status: "",
+    }));
   };
 
-  const handleRegister = ({email, password}) => {
+  const handleRegister = ({ email, password }) => {
     return register(email, password)
       .then((res) => {
-        let data = res.data
+        let data = res.data;
         return data;
       })
       .then((data) => {
@@ -57,8 +56,8 @@ function App() {
             ...prevState,
             isOpen: true,
             text: messageSucc,
-            status: "success"
-          }))
+            status: "success",
+          }));
         }
       })
       .catch(() => {
@@ -66,10 +65,10 @@ function App() {
           ...prevState,
           isOpen: true,
           text: messageErr,
-          status: "bad"
-        }))
-      })
-  }
+          status: "bad",
+        }));
+      });
+  };
 
   const handleLogin = ({ email, password }) => {
     return authorize(email, password)
@@ -84,8 +83,8 @@ function App() {
           ...prevState,
           isOpen: true,
           text: messageErr,
-          status: "bad"
-        }))
+          status: "bad",
+        }));
       });
   };
 
@@ -259,11 +258,7 @@ function App() {
           <InfoTooltip state={infoTooltipState} onClose={closeInfoTooltip} />
         </Route>
         <Route path="/sign-in">
-          <Login
-            handleLogin={handleLogin}
-            loggedErr={loggedErr}
-            onClosePopup={closeInfoTooltip}
-          />
+          <Login handleLogin={handleLogin} />
           <InfoTooltip state={infoTooltipState} onClose={closeInfoTooltip} />
         </Route>
 
