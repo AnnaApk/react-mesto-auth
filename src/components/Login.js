@@ -1,7 +1,5 @@
 import { useState } from "react";
 import Header from "./Header";
-import InfoTooltip from "./InfoTooltip";
-import union2 from '../images/UnionErr.svg';
 
 function Login(props) {
 

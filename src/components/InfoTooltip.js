@@ -9,7 +9,7 @@ function InfoTooltip({state, onClose}) {
     <div className={className}>
       <div className="popup__container">
         <div className="popup__body popup__overlay">
-          <img src={image} className="popup__union" />
+          <img src={image} className="popup__union" alt="" />
           <p className="popup__subtitle">{state.text}</p>
           <button
             className="popup__close popup__close_profile"
