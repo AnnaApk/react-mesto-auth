@@ -47,7 +47,7 @@ function App() {
   const handleRegister = ({ email, password }) => {
     return register(email, password)
       .then((res) => {
-        let data = res.data;
+        const data = res.data;
         return data;
       })
       .then((data) => {
@@ -75,7 +75,7 @@ function App() {
       .then((data) => {
         if (data.token) {
           localStorage.setItem("jwt", data.token);
-          tokenCheck();
+          checkToken();
         }
       })
       .catch(() => {
@@ -88,13 +88,26 @@ function App() {
       });
   };
 
-  const tokenCheck = () => {
+  const checkToken = () => {
     if (localStorage.getItem("jwt")) {
       const jwt = localStorage.getItem("jwt");
-      getContent(jwt).then((res) => {
-        setLoggedIn(true);
-        setUserEmail(res.data.email);
-      });
+      getContent(jwt)
+        .then((res) => {
+          if (res.data && res.data.email && res.data._id) {
+            setLoggedIn(true);
+            setUserEmail(res.data.email);
+          } else {
+            localStorage.removeItem("jwt")
+          }
+        })
+        .catch(() => {
+          setInfoTooltipState((prevState) => ({
+            ...prevState,
+            isOpen: true,
+            text: messageErr,
+            status: "bad",
+          }));
+        });
     }
   };
 
@@ -105,7 +118,7 @@ function App() {
   };
 
   useEffect(() => {
-    tokenCheck();
+    checkToken();
   }, []);
 
   useEffect(() => {
@@ -157,7 +170,8 @@ function App() {
   const handleCardLike = (card) => {
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
 
-    api.changeLikeCardStatus(card._id, !isLiked)
+    api
+      .changeLikeCardStatus(card._id, !isLiked)
       .then((newCard) => {
         setCards((prevCards) =>
           prevCards.map((prevCard) =>
@@ -171,12 +185,11 @@ function App() {
   };
 
   const handleCardDelete = (card) => {
-   api.deleteCard(card._id)
+    api
+      .deleteCard(card._id)
       .then(() => {
         setCards((prevCards) =>
-          prevCards.filter((prevCard) =>
-            prevCard._id === card._id ? "" : prevCard
-          )
+          prevCards.filter((prevCard) => prevCard._id !== card._id)
         );
       })
       .catch((err) => {
@@ -185,7 +198,8 @@ function App() {
   };
 
   const handleUpdateUser = ({ name, about }) => {
-    api.editProfile(name, about)
+    api
+      .editProfile(name, about)
       .then((res) => {
         setCurrentUser((prevState) => ({
           ...prevState,
@@ -200,7 +214,8 @@ function App() {
   };
 
   const handleUpdateAvatar = ({ avatar }) => {
-    api.editAvatar(avatar)
+    api
+      .editAvatar(avatar)
       .then((res) => {
         setCurrentUser((prevState) => ({ ...prevState, avatar: res.avatar }));
         closeAllPopups();
@@ -211,7 +226,8 @@ function App() {
   };
 
   const handleAddPlace = ({ name, link }) => {
-    api.addNewCard(name, link)
+    api
+      .addNewCard(name, link)
       .then((newCard) => {
         setCards([newCard, ...cards]);
         closeAllPopups();
@@ -222,46 +238,47 @@ function App() {
   };
 
   return (
-    <Switch>
-      <CurrentUserContext.Provider value={currentUser}>
-        <ProtectedRoute
-          exact
-          path="/"
-          loggedIn={loggedIn}
-          signOut={signOut}
-          userEmail={userEmail}
-          handleEditAvatarClick={handleEditAvatarClick}
-          handleEditProfileClick={handleEditProfileClick}
-          handleAddPlaceClick={handleAddPlaceClick}
-          handleCardClick={handleCardClick}
-          cards={cards}
-          handleCardLike={handleCardLike}
-          handleCardDelete={handleCardDelete}
-          isEditProfilePopupOpen={isEditProfilePopupOpen}
-          isEditAvatarPopupOpen={isEditAvatarPopupOpen}
-          isAddPlacePopupOpen={isAddPlacePopupOpen}
-          handleUpdateUser={handleUpdateUser}
-          handleUpdateAvatar={handleUpdateAvatar}
-          handleAddPlace={handleAddPlace}
-          closeAllPopups={closeAllPopups}
-          selectedCard={selectedCard}
-          component={PersonalPage}
-        />
+    <>
+      <Switch>
+        <CurrentUserContext.Provider value={currentUser}>
+          <ProtectedRoute
+            exact
+            path="/"
+            loggedIn={loggedIn}
+            signOut={signOut}
+            userEmail={userEmail}
+            handleEditAvatarClick={handleEditAvatarClick}
+            handleEditProfileClick={handleEditProfileClick}
+            handleAddPlaceClick={handleAddPlaceClick}
+            handleCardClick={handleCardClick}
+            cards={cards}
+            handleCardLike={handleCardLike}
+            handleCardDelete={handleCardDelete}
+            isEditProfilePopupOpen={isEditProfilePopupOpen}
+            isEditAvatarPopupOpen={isEditAvatarPopupOpen}
+            isAddPlacePopupOpen={isAddPlacePopupOpen}
+            handleUpdateUser={handleUpdateUser}
+            handleUpdateAvatar={handleUpdateAvatar}
+            handleAddPlace={handleAddPlace}
+            closeAllPopups={closeAllPopups}
+            selectedCard={selectedCard}
+            component={PersonalPage}
+          />
 
-        <Route path="/sign-up">
-          <Register handleRegister={handleRegister} />
-          <InfoTooltip state={infoTooltipState} onClose={closeInfoTooltip} />
-        </Route>
-        <Route path="/sign-in">
-          <Login handleLogin={handleLogin} />
-          <InfoTooltip state={infoTooltipState} onClose={closeInfoTooltip} />
-        </Route>
+          <Route path="/sign-up">
+            <Register handleRegister={handleRegister} />
+          </Route>
+          <Route path="/sign-in">
+            <Login handleLogin={handleLogin} />
+          </Route>
 
-        <Route>
-          {loggedIn ? <Redirect to="/" /> : <Redirect to="/sign-in" />}
-        </Route>
-      </CurrentUserContext.Provider>
-    </Switch>
+          <Route>
+            {loggedIn ? <Redirect to="/" /> : <Redirect to="/sign-in" />}
+          </Route>
+        </CurrentUserContext.Provider>
+      </Switch>
+      <InfoTooltip state={infoTooltipState} onClose={closeInfoTooltip} />
+    </>
   );
 }
 
