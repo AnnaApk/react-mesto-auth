@@ -157,8 +157,7 @@ function App() {
   const handleCardLike = (card) => {
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
 
-    api
-      .changeLikeCardStatus(card._id, !isLiked)
+    api.changeLikeCardStatus(card._id, !isLiked)
       .then((newCard) => {
         setCards((prevCards) =>
           prevCards.map((prevCard) =>
@@ -172,8 +171,7 @@ function App() {
   };
 
   const handleCardDelete = (card) => {
-    api
-      .deleteCard(card._id)
+   api.deleteCard(card._id)
       .then(() => {
         setCards((prevCards) =>
           prevCards.filter((prevCard) =>
@@ -187,8 +185,7 @@ function App() {
   };
 
   const handleUpdateUser = ({ name, about }) => {
-    api
-      .editProfile(name, about)
+    api.editProfile(name, about)
       .then((res) => {
         setCurrentUser((prevState) => ({
           ...prevState,
@@ -203,8 +200,7 @@ function App() {
   };
 
   const handleUpdateAvatar = ({ avatar }) => {
-    api
-      .editAvatar(avatar)
+    api.editAvatar(avatar)
       .then((res) => {
         setCurrentUser((prevState) => ({ ...prevState, avatar: res.avatar }));
         closeAllPopups();
@@ -215,8 +211,7 @@ function App() {
   };
 
   const handleAddPlace = ({ name, link }) => {
-    api
-      .addNewCard(name, link)
+    api.addNewCard(name, link)
       .then((newCard) => {
         setCards([newCard, ...cards]);
         closeAllPopups();
